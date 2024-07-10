@@ -18,9 +18,10 @@ import { isLoggedIn } from "../../store/globalstates";
 import Header from "../Header.jsx";
 import logo from "../../assets/images/A-logo.png";
 import "../Loader.css";
-
+import useWindowSize from "./hooks/useWindowsSize.jsx";
 function Home() {
   const nav = useNavigate();
+  const windowSize=useWindowSize();
   const [loader, showLoader] = useState(true);
   const [isUserLoggedIn, setLoginStatus] = useRecoilState(isLoggedIn);
   const [val, setval] = useState({ year: 0, clinical: 0, patient: 0 });
