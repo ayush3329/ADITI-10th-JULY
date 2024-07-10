@@ -15,9 +15,9 @@ function Services() {
       {services.map((item, index) => (
         <motion.div
           key={index}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 20 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
+          // initial={{ opacity: 0, y: 20 }}
+          // animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 20 }}
+          // transition={{ duration: 0.5, delay: index * 0.1 }}
         >
           <ServiceCard item={item} />
         </motion.div>
