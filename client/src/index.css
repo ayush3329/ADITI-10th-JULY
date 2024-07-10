@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    section{
+        @apply py-[75px];
+    }
+}
+@layer components{
+    .container{
+        @apply max-w-full w-[1440px] px-5 mx-auto;
+    }
+    
+    .btn {
+        @apply bg-primaryColor py-2 flex px-4 h-14 items-center justify-center rounded-[30px] text-white font-semibold  mt-[20px];
+      }
+    .heading{
+        @apply font-[800] text-[25px] leading-[30px];
+    }
+    .text_para{
+        @apply text-[15px] leading-[30px] font-[400] text-textColor mt-[1px]
+    }
+    .header{
+        @apply bg-[url('./assets/images/mask.png')] bg-no-repeat bg-center bg-cover w-full h-[15vh] leading-[100px];
+    }
+    .hero_section{
+        @apply bg-[url('./assets/images/hero-bg.png')] bg-no-repeat bg-center bg-cover w-full h-[100px] leading-[100px];
+    }
+    
+}

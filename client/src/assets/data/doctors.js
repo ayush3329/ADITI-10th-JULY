@@ -1,0 +1,66 @@
+import doctorImg01 from "../images/doctor-img01.png";
+import doctorImg02 from "../images/doctor-img02.png";
+import doctorImg03 from "../images/doctor-img03.png";
+
+export const doctors = [
+  {
+    id: "01",
+    name: "Dr. Alfaz Ahmed",
+    specialty: "Surgeon",
+    avgRating: 4.8,
+    totalRating: 272,
+    photo: doctorImg01,
+    totalPatients: 1500,
+    hospital: "Mount Adora Hospital, Sylhet.",
+  },
+  {
+    id: "10",
+    name: "Dr. Saleh Mahmud",
+    specialty: "Neurologist",
+    avgRating: 4.8,
+    totalRating: 272,
+    photo: doctorImg02,
+    totalPatients: 1500,
+    hospital: "Mount Adora Hospital, Sylhet.",
+  },
+  {
+    id: "09",
+    name: "Dr. Farid Uddin",
+    specialty: "Dermatologist",
+    avgRating: 4.8,
+    totalRating: 272,
+    photo: doctorImg03,
+    totalPatients: 1500,
+    hospital: "Mount Adora Hospital, Sylhet.",
+  },
+  {
+    id: "08",
+    name: "Dr. Alfaz Ahmed",
+    specialty: "Surgeon",
+    avgRating: 4.8,
+    totalRating: 272,
+    photo: doctorImg01,
+    totalPatients: 1500,
+    hospital: "Mount Adora Hospital, Sylhet.",
+  },
+  {
+    id: "07",
+    name: "Dr. Saleh Mahmud",
+    specialty: "Neurologist",
+    avgRating: 4.8,
+    totalRating: 272,
+    photo: doctorImg02,
+    totalPatients: 1500,
+    hospital: "Mount Adora Hospital, Sylhet.",
+  },
+  {
+    id: "06",
+    name: "Dr. Farid Uddin",
+    specialty: "Dermatologist",
+    avgRating: 4.8,
+    totalRating: 272,
+    photo: doctorImg03,
+    totalPatients: 1500,
+    hospital: "Mount Adora Hospital, Sylhet.",
+  },
+];
