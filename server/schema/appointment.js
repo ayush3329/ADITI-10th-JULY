@@ -3,14 +3,31 @@ const mongoose = require('mongoose');
     //commented ko uncommented krdo aur type should be ref , woh bas change kiya tha handler  testing ke liye
       user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'user',
         required: true,
       },
-      doctor: {
-        // type: mongoose.Schema.Types.ObjectId,
-        type:String,
-        ref: 'Doctor',
+      paitent_name: {
+        type: String,
         required: true,
+      },
+      age:{
+        type: Number,
+        required: true
+      },
+      gender:{
+        type: String,
+        required: true,
+        enum: ['Male', 'Female']
+      },
+      description: {
+        type: String,
+        required: true,
+        maxLength: 100
+      },
+      department: {
+        type: String,
+        required: true,
+        enum: ["Covid-19", "Heart Caring", "Orthopedic", "Obstetrics", "Lungs", "Pediatrics"]
       },
       time: {
         type: Date,

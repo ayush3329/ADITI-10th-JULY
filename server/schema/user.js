@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'doctor', 'admin'],
         required: true,
       },
+      appointments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'appointment',
+      }]
 });
 const user = mongoose.model("user", userSchema );
 module.exports = user;
