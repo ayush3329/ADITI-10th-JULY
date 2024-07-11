@@ -353,8 +353,8 @@ function Home() {
 
           
           
-            <AllServices></AllServices>
             <About></About>
+            <AllServices></AllServices>
             <Doctors></Doctors>
             <Footer></Footer>
 
