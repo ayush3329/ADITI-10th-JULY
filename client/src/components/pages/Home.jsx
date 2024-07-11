@@ -19,11 +19,13 @@ import logo from "../../assets/images/A-logo.png";
 import "../Loader.css";
 import useWindowSize from "./hooks/useWindowsSize.jsx";
 function Home() {
+  
   const nav = useNavigate();
   const windowSize=useWindowSize();
   const [loader, showLoader] = useState(true);
   const [isUserLoggedIn, setLoginStatus] = useRecoilState(isLoggedIn);
   const [val, setval] = useState({ year: 0, clinical: 0, patient: 0 });
+  const [appointment_form, set_appointment_form]  = useState(false);
 
   useEffect(() => {
     console.log("refresh ", isUserLoggedIn);
@@ -42,7 +44,7 @@ function Home() {
         return;
       }
 
-      const response = await fetch("http://192.168.158.223:4000/checkLoginStatus",{
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/checkLoginStatus`,{
         method: 'POST',
         headers: {
         'Content-Type': 'application/json',
@@ -110,6 +112,8 @@ function Home() {
   const AppointmentRequest = () => {
     if (!isUserLoggedIn) {
       nav("/Login");
+    } else{
+      set_appointment_form(true);
     }
   };
 
@@ -130,6 +134,12 @@ function Home() {
           {/* Header */}
 
           {/* hero section */}
+          
+          <div className="relative">
+
+          
+          
+
           <section className="hero_section pt-[0px] h-screen">
             <div className="container">
               <motion.div
@@ -341,11 +351,23 @@ function Home() {
             </div>
           </section>
 
-          <About></About>
+          
+          
+            <AllServices></AllServices>
+            <Footer></Footer>
+            <About></About>
+            <Doctors></Doctors>
 
-          <AllServices></AllServices>
-          <Doctors></Doctors>
-          <Footer></Footer>
+          
+            
+
+
+
+            {
+            appointment_form && <div className="h-[100%] w-[80%] bg-yellow-100 absolute z-10">Hello</div>
+            }
+
+          </div>
         </>
       )}
     </>

@@ -1,9 +1,11 @@
 const express=require('express');
 const app = express();
 const router= express.Router();
-const { signup , makeAppointment , login, checkLoginStatus}=require('../controllers/handler');
-router.post('/ap', makeAppointment);
+const { signup , makeAppointment , login, checkLoginStatus, test, gettest, jwtDecode}=require('../controllers/handler');
 router.post('/signup', signup);
 router.post("/login", login)
 router.post("/checkLoginStatus", checkLoginStatus)
+router.post("/test", jwtDecode, test)
+router.post("/gettest", gettest)
+router.post("/makeappointment", jwtDecode, makeAppointment)
 module.exports = router;

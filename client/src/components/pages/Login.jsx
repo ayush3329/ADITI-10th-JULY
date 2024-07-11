@@ -22,12 +22,12 @@ function Login() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(formData);
-    const reponse = await fetch("http://192.168.158.223:4000/login",{
+    const reponse = await fetch(`${process.env.REACT_APP_BASE_URL}/login`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({formData}),
+      body: JSON.stringify({registeredEmail: formData.registeredEmail, password: formData.password}),
     })
     const data = await reponse.json();
     if(data.success){
