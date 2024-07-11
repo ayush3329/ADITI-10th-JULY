@@ -354,9 +354,9 @@ function Home() {
           
           
             <AllServices></AllServices>
-            <Footer></Footer>
             <About></About>
             <Doctors></Doctors>
+            <Footer></Footer>
 
           
             
