@@ -15,7 +15,6 @@ import { useInView } from "react-intersection-observer";
 import Footer from "../Footer.jsx";
 import { useRecoilState } from "recoil";
 import { isLoggedIn } from "../../store/globalstates";
-import Header from "../Header.jsx";
 import logo from "../../assets/images/A-logo.png";
 import "../Loader.css";
 import useWindowSize from "./hooks/useWindowsSize.jsx";

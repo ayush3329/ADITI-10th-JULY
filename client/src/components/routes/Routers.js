@@ -8,6 +8,9 @@ import Doctors from '../pages/Doctors.jsx';
 import DocDetails from '../pages/DocDetails.jsx';
 import Contact from '../pages/Contact.jsx';
 import AllServices from '../pages/AllServices.jsx';
+import UserPage from '../../afterLogins/client/UserPage.jsx';
+import ShowMyBookings from '../../afterLogins/client/ShowMybookings.jsx';
+import ConfigBookings from '../../afterLogins/hospitalAdmin/ConfigBookings.jsx';
 function Router() {
   return (
       <Routes>
@@ -19,6 +22,9 @@ function Router() {
         <Route path="/Doctors" element={<Doctors/>}/>
         <Route path="/Contact" element={<Contact/>}/>
         <Route path="/DocDetails/:docId" element={<DocDetails/>}/>
+        <Route path="/UserPage" element={<UserPage/>}/>
+        <Route path="/ShowMyBookings" element={<ShowMyBookings/>}/>
+        <Route path="/ConfigBookings" element={<ConfigBookings/>}/>
       </Routes>
   )
 }
