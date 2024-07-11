@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import logo from "../assets/images/A-logo.png";
 import userImg from "../assets/images/avatar-icon.png";
 import { BiMenu } from "react-icons/bi";
@@ -8,6 +8,7 @@ import { isLoggedIn } from '../store/globalstates';
 
 
 function Header() {
+  const nav = useNavigate();
   const [isUserLoggedIn, setLoginStatus] = useRecoilState(isLoggedIn);
   // NAVIGATION LINKS
   const navLinks = [
@@ -36,7 +37,8 @@ function Header() {
     if(localStorage.getItem("token")){
       localStorage.removeItem("token");
       setLoginStatus(false);
-    }
+    } 
+    nav("/login");
   }
 
   useEffect(() => {

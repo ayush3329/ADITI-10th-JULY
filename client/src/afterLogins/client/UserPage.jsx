@@ -1,27 +1,119 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import heroimg1 from "./../../assets/images/avatar-icon.png";
+import { isLoggedIn } from '../../store/globalstates';
+import { useRecoilState } from 'recoil';
+import "../../components/Loader.css"
+import logo from "../../assets/images/A-logo.png";
+import "./spinner.css"
+
 
 function UserPage() {
+  const [reqsent, setReqSent] = useState(false);
+  const [isUserLoggedIn, setLoginStatus] = useRecoilState(isLoggedIn);
+  const [loader, showLoader] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
+    patient_name: '',
     age: '',
     gender: '',
     description: '',
     department: 'Covid-19',
+    date: '',
+    phone: ''
   });
   const nav = useNavigate();
 
+  //Protected route -> Done
+  useEffect(() => {
+    console.log("Logged in status " + isUserLoggedIn);
+    if (isUserLoggedIn) {
+      showLoader(false);
+      return;
+    }
+
+    const CheckLoginStatus = async () => {
+      showLoader(true);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setLoginStatus(false);
+        showLoader(false);
+        nav("/Login");
+        return;
+      }
+
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/checkLoginStatus`,{
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({token: token})
+      })
+
+      const data = await response.json();
+      if(data.success){
+      setLoginStatus(true);
+      } else{
+        setLoginStatus(false);
+        nav("/Login");
+        }
+
+      showLoader(false);
+      return;
+    };
+
+    CheckLoginStatus();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev)=>{
+      return {...prev, [name]: value}
+    });
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form data submitted:', formData);
-    // You would send formData to your backend here
+  const handleFormSubmit = async(e) => {
+    try{
+      setReqSent(true);
+      const token = localStorage.getItem("token");
+      if(!token) {
+        nav("/login");
+        setReqSent(false);
+        return;
+      }
+      e.preventDefault();
+      console.log('Form data submitted:', formData);
+
+      const reponse = await fetch(`${process.env.REACT_APP_BASE_URL}/makeappointment`, {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({token: token, name: formData.patient_name, gender: formData.gender, 
+                              description: formData.description, age: formData.age,
+                              department: formData.department, date: formData.date, phone: formData.phone
+                            })
+
+      })
+
+
+      const data = await reponse.json();
+
+      console.log(data);
+
+      if(data.success) {
+        console.log("alert");
+        alert(data.msg);
+        setFormData({age: '', date: '', department: '', description: '', gender: '', patient_name: '', phone: ''})
+      } else{
+        alert(data.msg);
+      }
+      setReqSent(false);
+
+    } catch(e){
+
+      setReqSent(false);
+    }
   };
 
   const user = {
@@ -32,7 +124,14 @@ function UserPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
+    <>
+    {loader ? (
+      <div className="flex flex-col gap-[2rem] h-[100vh] w-[100vw] items-center justify-center">
+        <img src={logo} alt="logo" />
+        <div class="loader"></div>
+      </div>
+    ) :
+    (<div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-sm">
         <div className="flex flex-col items-center">
           <img
@@ -64,8 +163,8 @@ function UserPage() {
               <label className="block text-gray-700">Patient Name</label>
               <input
                 type="text"
-                name="paitent_name"
-                value={formData.name}
+                name="patient_name"
+                value={formData.patient_name}
                 onChange={handleInputChange}
                 className="mt-1 p-2 border rounded w-full"
                 required
@@ -77,6 +176,28 @@ function UserPage() {
                 type="number"
                 name="age"
                 value={formData.age}
+                onChange={handleInputChange}
+                className="mt-1 p-2 border rounded w-full"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Phone No.</label>
+              <input
+                type="number"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="mt-1 p-2 border rounded w-full"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Date</label>
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
                 onChange={handleInputChange}
                 className="mt-1 p-2 border rounded w-full"
                 required
@@ -126,14 +247,20 @@ function UserPage() {
             </div>
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
+              className="flex justify-center items-center bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full h-[2.8rem]"
             >
-              Submit
+            
+            {!reqsent ? 
+              (<span>submit</span>) : (<span class="loader2"></span>)
+            }
             </button>
           </form>
         )}
       </div>
     </div>
+    )
+  }
+  </>
   );
 }
 

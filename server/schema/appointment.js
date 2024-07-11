@@ -6,9 +6,13 @@ const mongoose = require('mongoose');
         ref: 'user',
         required: true,
       },
-      paitent_name: {
+      patient_name: {
         type: String,
         required: true,
+      },
+      phone: {
+        type: Number,
+        required: true
       },
       age:{
         type: Number,
