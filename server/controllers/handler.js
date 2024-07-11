@@ -221,6 +221,21 @@ const jwtDecode = async(req, res, next)=>{
 
 
 
+const showAppointments = async(req, res)=>{
+    try{
+        const {Email} = req.body;
+        const User=await user.findOne({email: Email});
+        if(!User){
+            return res.status(404).json({message:'User has not been found , please re Login'});
+        }
+        // console.log(User);
+        const appointments=await appointment.find({user:User._id});
+        res.status(200).json(appointments);
+    }
+    catch{
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+}
 
-
-module.exports = { signup ,  makeAppointment , login, checkLoginStatus, test,gettest, jwtDecode};
+module.exports = { signup ,  makeAppointment , login, checkLoginStatus, test,gettest, jwtDecode , showAppointments};
