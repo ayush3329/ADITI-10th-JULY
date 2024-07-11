@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import heroimg1 from "./../../assets/images/avatar-icon.png";
+
 function UserPage() {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    patientName: '',
-    patientGender: '',
-    patientAge: '',
-    department: 'cardiac',
+    name: '',
+    age: '',
+    gender: '',
+    description: '',
+    department: 'Covid-19',
   });
   const nav = useNavigate();
 
@@ -19,6 +21,7 @@ function UserPage() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log('Form data submitted:', formData);
+    // You would send formData to your backend here
   };
 
   const user = {
@@ -61,8 +64,19 @@ function UserPage() {
               <label className="block text-gray-700">Patient Name</label>
               <input
                 type="text"
-                name="patientName"
-                value={formData.patientName}
+                name="paitent_name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="mt-1 p-2 border rounded w-full"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Patient Age</label>
+              <input
+                type="number"
+                name="age"
+                value={formData.age}
                 onChange={handleInputChange}
                 className="mt-1 p-2 border rounded w-full"
                 required
@@ -71,26 +85,25 @@ function UserPage() {
             <div className="mb-4">
               <label className="block text-gray-700">Patient Gender</label>
               <select
-                name="patientGender"
-                value={formData.patientGender}
+                name="gender"
+                value={formData.gender}
                 onChange={handleInputChange}
                 className="mt-1 p-2 border rounded w-full"
                 required
               >
                 <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Patient Age</label>
-              <input
-                type="number"
-                name="patientAge"
-                value={formData.patientAge}
+              <label className="block text-gray-700">Description</label>
+              <textarea
+                name="description"
+                value={formData.description}
                 onChange={handleInputChange}
                 className="mt-1 p-2 border rounded w-full"
+                maxLength="100"
                 required
               />
             </div>
@@ -103,11 +116,12 @@ function UserPage() {
                 className="mt-1 p-2 border rounded w-full"
                 required
               >
-                <option value="cardiac">Cardiac</option>
-                <option value="derma">Derma</option>
-                <option value="orthopedic">Orthopedic</option>
-                <option value="maternity">Maternity</option>
-                <option value="psychological">Psychological</option>
+                <option value="Covid-19">Covid-19</option>
+                <option value="Heart Caring">Heart Caring</option>
+                <option value="Orthopedic">Orthopedic</option>
+                <option value="Obstetrics">Obstetrics</option>
+                <option value="Lungs">Lungs</option>
+                <option value="Pediatrics">Pediatrics</option>
               </select>
             </div>
             <button

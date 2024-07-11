@@ -132,7 +132,7 @@ const signup =async (req, res) =>{
 
 const makeAppointment=async (req, res) =>{
     try{
-        const {id, name, age, gender, description, department} = rew.body;
+        const {id, name, age, gender, description, department} = req.body;
         const time = Date.now();
         if(!name || !age || !gender || !description || !department || !time) return res.status(401).json({success: false, msg: "Incomplete Details"})
         const saveAppointment = await appointment.create({

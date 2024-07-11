@@ -172,7 +172,9 @@ function Home() {
                         </button>
                         {/* </Link> */}
                         {isUserLoggedIn && (
-                          <button className="btn w-1/2 text-sm sm:text-base">Appointment Status</button>
+                          <Link to="/showMyBookings" className="btn w-1/2 text-sm sm:text-base" >
+                          <button >Appointment Status</button>
+                          </Link>
                         )}
                       </div>
                     </div>
