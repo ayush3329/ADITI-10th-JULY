@@ -132,16 +132,19 @@ const signup =async (req, res) =>{
 
 const makeAppointment=async (req, res) =>{
     try{
-        const {id, name, age, gender, description, department} = req.body;
-        const time = Date.now();
-        if(!name || !age || !gender || !description || !department || !time) return res.status(401).json({success: false, msg: "Incomplete Details"})
+        const {id, name, date, age, gender, description, department, phone} = req.body;
+        if (!/^\d{10}$/.test(phone)) {
+            return res.status(401).json({ success: false, msg: "Invalid Phone Number" });
+        }
+        const time = new Date(date).getTime();
+        if(!name || !age || !gender || !description || !department || !time || !phone) return res.status(401).json({success: false, msg: "Incomplete Details"})
         const saveAppointment = await appointment.create({
-            user: id, paitent_name: name, age: age, gender: gender,
+            user: id, patient_name: name, age: age, gender: gender,
             description: description, department: department,
-            time: time
+            time: time, phone: phone
         })
 
-        if(saveAppointment) return res.status(200).json({sucess: true, msg: "Appointment Successfull", apointment_id: saveAppointment._id});
+        if(saveAppointment) return res.status(200).json({success: true, msg: "Appointment Successfull, you will receive exact time slot via SMS", apointment_id: saveAppointment._id});
         return res.status(401).json({success: false, msg: "Unable to make appointment"});
 
     }
