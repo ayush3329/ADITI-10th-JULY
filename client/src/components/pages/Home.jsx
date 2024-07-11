@@ -363,9 +363,6 @@ function Home() {
 
 
 
-            {
-            appointment_form && <div className="h-[100%] w-[80%] bg-yellow-100 absolute z-10">Hello</div>
-            }
 
           </div>
         </>
