@@ -113,7 +113,7 @@ function Home() {
     if (!isUserLoggedIn) {
       nav("/Login");
     } else{
-      set_appointment_form(true);
+      nav("/userPage");
     }
   };
 
